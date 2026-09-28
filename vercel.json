@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/plans",
+      "destination": "https://fitness-website-api-v1.onrender.com/plans"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

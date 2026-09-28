@@ -12,9 +12,7 @@ function MembershipPlans() {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const res = await fetch(
-          "https://fitness-website-api-v1.onrender.com/plans"
-        );
+        const res = await fetch("/api/plans");
 
         if (!res.ok) {
           throw new Error("Unable to load membership plans.");
