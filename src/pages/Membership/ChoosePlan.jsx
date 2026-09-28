@@ -18,6 +18,8 @@ function ChoosePlan() {
         backgroundImage: `url(${choosePlan})`,
       }}
     >
+      <div className="absolute inset-0 bg-black/70" />
+
       <div className="relative z-10 mx-auto max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-500">
           Membership

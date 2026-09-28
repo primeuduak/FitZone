@@ -15,7 +15,7 @@ function PaymentPage() {
       }}
     >
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/70"></div>
+      <div className="absolute inset-0 bg-black/80"></div>
 
       <div className="relative z-10 mx-auto max-w-5xl">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-500">

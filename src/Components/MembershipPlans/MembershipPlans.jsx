@@ -1,51 +1,37 @@
 import membership from "../../assets/membership image.jpg";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../Routes/Paths";
+import { useEffect, useState } from "react";
 
 function MembershipPlans() {
   const navigate = useNavigate();
-  const plans = [
-    {
-      name: "Basic",
-      price: "₦500",
-      period: "/ month",
-      description:
-        "Everything you need to get started with your fitness journey.",
-      features: [
-        "Gym access",
-        "Basic equipment access",
-        "Locker access",
-        "Free fitness assessment",
-      ],
-    },
-    {
-      name: "Premium",
-      price: "₦1,000",
-      period: "/ month",
-      description: "More flexibility and benefits for serious fitness goals.",
-      popular: true,
-      features: [
-        "24/7 gym access",
-        "All equipment access",
-        "Locker access",
-        "Personal fitness assessment",
-        "Group fitness classes",
-      ],
-    },
-    {
-      name: "Elite",
-      price: "₦2,000",
-      period: "/ month",
-      description: "A complete premium experience with personalized support.",
-      features: [
-        "24/7 gym access",
-        "All equipment access",
-        "Personal trainer",
-        "Nutrition guidance",
-        "Priority support",
-      ],
-    },
-  ];
+  const [plans, setPlans] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const res = await fetch(
+          "https://fitness-website-api-v1.onrender.com/plans"
+        );
+
+        if (!res.ok) {
+          throw new Error("Unable to load membership plans.");
+        }
+
+        const data = await res.json();
+        setPlans(Array.isArray(data.data) ? data.data : []);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
 
   return (
     <section
@@ -77,9 +63,19 @@ function MembershipPlans() {
 
         {/* Plans */}
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {plans.map((plan) => (
+          {isLoading && (
+            <p className="text-center text-gray-300 lg:col-span-3">
+              Loading membership plans...
+            </p>
+          )}
+
+          {!isLoading && error && (
+            <p className="text-center text-red-300 lg:col-span-3">{error}</p>
+          )}
+
+          {!isLoading && !error && plans.map((plan) => (
             <div
-              key={plan.name}
+              key={plan.id}
               className={`relative rounded-2xl border p-8 transition ${
                 plan.popular
                   ? "border-blue-400 bg-blue-950/80"
@@ -96,21 +92,23 @@ function MembershipPlans() {
               <h3 className="text-2xl font-bold">{plan.name}</h3>
 
               <p className="mt-3 min-h-12 text-sm leading-6 text-gray-200">
-                {plan.description}
+                {plan.description || `Membership access for ${plan.duration} days.`}
               </p>
 
               {/* Price */}
               <div className="mt-8 flex items-end gap-1">
-                <span className="text-4xl font-extrabold">{plan.price}</span>
+                <span className="text-4xl font-extrabold">
+                  ₦{Number(plan.price).toLocaleString()}
+                </span>
 
                 <span className="mb-1 text-sm text-gray-200">
-                  {plan.period}
+                  / {plan.duration} days
                 </span>
               </div>
 
               {/* Features */}
               <ul className="mt-8 space-y-4">
-                {plan.features.map((feature) => (
+                {plan.benefits.map((feature) => (
                   <li
                     key={feature}
                     className="flex items-center gap-3 text-sm text-white"
