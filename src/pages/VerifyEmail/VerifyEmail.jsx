@@ -25,7 +25,7 @@ function VerifyEmail() {
     }
 
     setLoading(true);
-
+const BASEURL = "https://fitness-website-api-v1.onrender.com";
     try {
       const response = await fetch(`${BASEURL}/auth/verify-otp`, {
         method: "POST",
