@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../Routes/Paths";
 import gymBackground from "../../assets/gym-background1.avif"; //import image background 
@@ -17,12 +16,12 @@ function Login() {
       setFormData( (prev) => ({...prev, [name] : value}))
   }
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const BASEURL = "https://fitness-website-api-v1.onrender.com"
 
     async function handleSubmit(event) {
         event.preventDefault();
-            setLoading(true)
+        setLoading(true);
         try {
             const res = await fetch(`${BASEURL}/auth/login`, {
                 method:"POST",
@@ -31,15 +30,17 @@ function Login() {
                 credentials: "include"
             });
             const data = await res.json();
-            console.log(data)
 
-            setLoading(false)
-            
+            if (!res.ok) {
+                throw new Error(data.message || data.msg || "Unable to log in.");
+            }
+
+            navigate(PATHS.app.dashboard);
         } catch (error) {
-            console.log(error)
+            console.error("Login failed:", error);
+        } finally {
+            setLoading(false);
         }
-        
-        // navigate(PATHS.app.dashboard);
     }
 
     return (
