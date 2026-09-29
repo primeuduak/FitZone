@@ -61,7 +61,7 @@ function FeaturesSection() {
                     {features.map((feature) => (
                         <div
                             key={feature.title}
-                            className="rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/[0.05]"
+                            className="rounded-2xl border border-white/10 bg-white/3 p-7 transition duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/5"
                         >
 
                             {/* Icon */}

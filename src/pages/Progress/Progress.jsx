@@ -2,36 +2,15 @@ import {
     ArrowUpRight,
     CalendarCheck2,
     Dumbbell,
-    Flame,
-    Target,
-    TrendingDown,
 } from "lucide-react";
 
 function Progress() {
     const stats = [
         {
-            label: "Current Weight",
-            value: "78 kg",
-            change: "-2 kg",
-            icon: Target,
-        },
-        {
-            label: "Goal Weight",
-            value: "72 kg",
-            change: "6 kg to go",
-            icon: TrendingDown,
-        },
-        {
             label: "Workouts",
             value: "18",
             change: "This month",
             icon: Dumbbell,
-        },
-        {
-            label: "Calories Burned",
-            value: "8,420",
-            change: "This month",
-            icon: Flame,
         },
     ];
 
@@ -89,12 +68,12 @@ function Progress() {
                 </div>
 
                 {/* Stats */}
-                <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
 
                     {stats.map((stat) => (
                         <div
                             key={stat.label}
-                            className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/[0.08]"
+                            className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/8"
                         >
 
                             <div className="flex items-center justify-between">
@@ -116,53 +95,10 @@ function Progress() {
                 </div>
 
                 {/* Progress Overview */}
-                <div className="mt-8 grid gap-6 lg:grid-cols-2">
-
-                    {/* Weight Progress */}
-                    <div className="rounded-2xl border border-blue-500/30 bg-linear-to-br from-blue-500/15 to-white/5 p-6 shadow-lg shadow-blue-950/20">
-
-                        <div className="flex items-center justify-between">
-
-                            <div>
-                                <p className="text-sm text-gray-300">
-                                    Weight Progress
-                                </p>
-
-                                <h2 className="mt-1 text-xl font-bold">
-                                    78 kg
-                                </h2>
-                            </div>
-
-                            <span className="flex items-center gap-2 text-sm font-semibold text-blue-300">
-                                <TrendingDown size={16} aria-hidden="true" />
-                                Goal: 72 kg
-                            </span>
-
-                        </div>
-
-                        <div className="mt-8">
-
-                            <div className="h-3 overflow-hidden rounded-full bg-white/10">
-
-                                <div
-                                    className="h-full rounded-full bg-linear-to-r from-blue-500 to-cyan-300"
-                                    style={{ width: "70%" }}
-                                ></div>
-
-                            </div>
-
-                            <div className="mt-3 flex justify-between text-xs text-gray-400">
-                                <span>Start: 84 kg</span>
-                                <span>Current: 78 kg</span>
-                                <span>Goal: 72 kg</span>
-                            </div>
-
-                        </div>
-
-                    </div>
+                <div className="mt-8">
 
                     {/* Workout Consistency */}
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-blue-500/40 hover:bg-white/[0.08]">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-blue-500/40 hover:bg-white/8">
 
                         <div className="flex items-center justify-between">
 
@@ -233,7 +169,7 @@ function Progress() {
                         {workoutHistory.map((workout) => (
                             <div
                                 key={`${workout.workout}-${workout.date}`}
-                                className="group flex flex-col gap-4 p-6 transition hover:bg-white/[0.04] sm:flex-row sm:items-center sm:justify-between"
+                                className="group flex flex-col gap-4 p-6 transition hover:bg-white/4 sm:flex-row sm:items-center sm:justify-between"
                             >
 
                                 <div>

@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/plans",
-      "destination": "https://fitness-website-api-v1.onrender.com/plans"
+      "source": "/api/:path*",
+      "destination": "https://fitness-website-api-v1.onrender.com/:path*"
     },
     {
       "source": "/(.*)",

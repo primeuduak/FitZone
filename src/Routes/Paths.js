@@ -41,6 +41,7 @@ export const PATHS = {
   auth: {
     login: "/login",
     register: "/register",
+    verifyEmail: "/verify-email",
   },
 
   // Add your main application pages here

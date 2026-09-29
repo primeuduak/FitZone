@@ -3,6 +3,7 @@ import MainLayOut from "../Layouts/MainLayout";
 import HomePage from "../pages/Home/Home";
 import { PATHS } from "./Paths";
 import LoginPage from "../pages/Login/Login";
+import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
 import ProtectedRoutes from "./ProtectedRoute";
 import ProfilePage from "../pages/Profile/profile";
 import RegisterPage from "../pages/Register/Register";
@@ -28,6 +29,7 @@ function AppRouter() {
         <Route path={PATHS.public.home} element={<HomePage />} />
         <Route path={PATHS.auth.login} element={<LoginPage />} />
         <Route path={PATHS.auth.register} element={<RegisterPage />} />
+        <Route path={PATHS.auth.verifyEmail} element={<VerifyEmail />} />
         <Route path={PATHS.public.membership} element={<MembershipPage />} />
         <Route path={PATHS.public.choosePlan} element={<ChoosePlan />} />
         <Route path={PATHS.public.payment} element={<PaymentPage />} />

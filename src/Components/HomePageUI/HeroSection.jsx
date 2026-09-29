@@ -33,20 +33,19 @@ function HeroSection() {
 
           {/* Buttons */}
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link to={PATHS.auth.register}>
-              <button className="rounded-xl bg-blue-600 px-7 py-3.5 font-semibold text-white transition hover:bg-blue-700">
-                Get Started
-              </button>
+            <Link
+              to={PATHS.auth.register}
+              className="rounded-xl bg-blue-600 px-7 py-3.5 font-semibold text-white transition hover:bg-blue-700"
+            >
+              Get Started
             </Link>
 
-            <a
-              href="#plans"
+            <Link
+              to={PATHS.public.membership}
               className="rounded-xl border border-white/30 px-7 py-3.5 font-semibold text-white backdrop-blur-sm transition hover:bg-white/10"
             >
-              <Link to={PATHS.public.membership}>
-                View Plans
-              </Link>
-            </a>
+              View Plans
+            </Link>
           </div>
 
           {/* Stats */}

@@ -2,12 +2,44 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../Routes/Paths";
 import gymBackground from "../../assets/gym-background1.avif"; //import image background 
+import { useState } from "react";
 function Login() {
-    const navigate = useNavigate();
 
-    function handleSubmit(event) {
+  const [formData, setFormData] = useState({
+     email: "",
+     password: ""
+  });
+
+  const [loading, setLoading] = useState(false)
+
+  const handleChange = (e) => {
+      const {value, name} = e.target
+      setFormData( (prev) => ({...prev, [name] : value}))
+  }
+
+    // const navigate = useNavigate();
+    const BASEURL = "https://fitness-website-api-v1.onrender.com"
+
+    async function handleSubmit(event) {
         event.preventDefault();
-        navigate(PATHS.app.dashboard);
+            setLoading(true)
+        try {
+            const res = await fetch(`${BASEURL}/auth/login`, {
+                method:"POST",
+                headers: {"Content-Type" : "application/json"},
+                body: JSON.stringify(formData),
+                credentials: "include"
+            });
+            const data = await res.json();
+            console.log(data)
+
+            setLoading(false)
+            
+        } catch (error) {
+            console.log(error)
+        }
+        
+        // navigate(PATHS.app.dashboard);
     }
 
     return (
@@ -53,6 +85,9 @@ function Login() {
                                 id="email"
                                 type="email"
                                 placeholder="Enter your email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
                                 className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-gray-500 focus:border-blue-500"
                             />
                         </div>
@@ -68,7 +103,11 @@ function Login() {
                             <input
                                 id="password"
                                 type="password"
+                                name="password"
                                 placeholder="Enter your password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                
                                 className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-gray-500 focus:border-blue-500"
                             />
 
@@ -86,18 +125,18 @@ function Login() {
                             type="submit"
                             className="w-full rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-700"
                         >
-                            Login
+                           {loading ? "Logging in..." : "Login"}
                         </button>
                     </form>
 
                     <p className="mt-6 text-center text-sm text-gray-400">
                         Don't have an account?{" "}
-                        <Link
+                        {/* <Link
                             to={PATHS.auth.register}
                             className="font-semibold text-blue-500 transition hover:text-blue-400"
-                        >
+                        > */}
                             Sign Up
-                        </Link>
+                        {/* </Link> */}
                     </p>
                 </div>
             </div>

@@ -158,7 +158,7 @@ function AdminDashboard() {
           </div>
 
           <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[600px] text-left">
+            <table className="w-full min-w-150 text-left">
               <thead>
                 <tr className="border-b border-white/10 text-sm text-gray-500">
                   <th className="pb-4 font-medium">Member</th>

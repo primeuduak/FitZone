@@ -4,13 +4,31 @@ import {
     CalendarCheck2,
     ChartNoAxesCombined,
     Dumbbell,
-    Flame,
-    Target,
     Utensils,
 } from "lucide-react";
 import { PATHS } from "../../Routes/Paths";
 
 function Dashboard() {
+    const storedUser = localStorage.getItem("fitzoneUser");
+    let user = null;
+
+    if (storedUser) {
+        try {
+            user = JSON.parse(storedUser);
+        } catch {
+            localStorage.removeItem("fitzoneUser");
+        }
+    }
+
+    const displayName =
+        user?.name ||
+        user?.fullName ||
+        user?.username ||
+        user?.userName ||
+        user?.email ||
+        localStorage.getItem("fitzoneRegistrationName") ||
+        "Member";
+
     return (
         <section className="min-h-screen bg-[#080b12] px-6 py-20 text-white md:py-24">
 
@@ -24,7 +42,7 @@ function Dashboard() {
 
                     <h1 className="mt-4 text-4xl font-bold md:text-5xl">
                         Welcome back,
-                        <span className="text-blue-500"> John.</span>
+                        <span className="text-blue-500"> {displayName}.</span>
                     </h1>
 
                     <p className="mt-4 max-w-2xl text-lg leading-8 text-gray-400">
@@ -74,24 +92,9 @@ function Dashboard() {
                 </div>
 
                 {/* Stats */}
-                <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
 
-                    <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/[0.08]">
-                        <div className="flex items-center justify-between">
-                            <p className="text-sm text-gray-400">Current Weight</p>
-                            <Target className="text-blue-400" size={20} aria-hidden="true" />
-                        </div>
-
-                        <h2 className="mt-3 text-3xl font-bold">
-                            78 kg
-                        </h2>
-
-                        <p className="mt-2 text-sm text-blue-400">
-                            Goal: 72 kg
-                        </p>
-                    </div>
-
-                    <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/[0.08]">
+                    <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/8">
                         <div className="flex items-center justify-between">
                             <p className="text-sm text-gray-400">Workouts</p>
                             <Dumbbell className="text-blue-400" size={20} aria-hidden="true" />
@@ -106,7 +109,7 @@ function Dashboard() {
                         </p>
                     </div>
 
-                    <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/[0.08]">
+                    <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/8">
                         <div className="flex items-center justify-between">
                             <p className="text-sm text-gray-400">Consistency</p>
                             <CalendarCheck2 className="text-blue-400" size={20} aria-hidden="true" />
@@ -114,21 +117,6 @@ function Dashboard() {
 
                         <h2 className="mt-3 text-3xl font-bold">
                             82%
-                        </h2>
-
-                        <p className="mt-2 text-sm text-blue-400">
-                            This month
-                        </p>
-                    </div>
-
-                    <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-blue-500/40 hover:bg-white/[0.08]">
-                        <div className="flex items-center justify-between">
-                            <p className="text-sm text-gray-400">Calories Burned</p>
-                            <Flame className="text-orange-400" size={20} aria-hidden="true" />
-                        </div>
-
-                        <h2 className="mt-3 text-3xl font-bold">
-                            8,420
                         </h2>
 
                         <p className="mt-2 text-sm text-blue-400">
@@ -155,7 +143,7 @@ function Dashboard() {
 
                         <Link
                             to={PATHS.app.exercises}
-                            className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-1 hover:border-blue-500/50 hover:bg-white/[0.08]"
+                            className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-1 hover:border-blue-500/50 hover:bg-white/8"
                         >
                             <div className="flex items-start justify-between">
                                 <Dumbbell className="text-blue-400" size={24} aria-hidden="true" />
@@ -174,7 +162,7 @@ function Dashboard() {
 
                         <Link
                             to={PATHS.app.workoutPlans}
-                            className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-1 hover:border-blue-500/50 hover:bg-white/[0.08]"
+                            className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-1 hover:border-blue-500/50 hover:bg-white/8"
                         >
                             <div className="flex items-start justify-between">
                                 <ChartNoAxesCombined className="text-blue-400" size={24} aria-hidden="true" />
@@ -212,7 +200,7 @@ function Dashboard() {
 
                         <Link
                             to={PATHS.app.progress}
-                            className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-1 hover:border-blue-500/50 hover:bg-white/[0.08]"
+                            className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:-translate-y-1 hover:border-blue-500/50 hover:bg-white/8"
                         >
                             <div className="flex items-start justify-between">
                                 <ChartNoAxesCombined className="text-blue-400" size={24} aria-hidden="true" />

@@ -16,7 +16,7 @@ function AboutSection() {
                     <img
                         src={workoutBackground}
                         alt="Person working out in a gym"
-                        className="h-[500px] w-full object-cover"
+                        className="h-125 w-full object-cover"
                     />
 
                     <div className="absolute inset-0 bg-black/20"></div>
