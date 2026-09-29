@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATHS } from "../../Routes/Paths";
 import gymBackground from "../../assets/gym-background1.avif"; //import image background 
 import { useState } from "react";
@@ -138,6 +138,16 @@ function Login() {
                         > */}
                             Sign Up
                         {/* </Link> */}
+                    </p>
+
+                    <p className="mt-4 text-center text-sm text-gray-400">
+                        Staff member?{" "}
+                        <Link
+                            to={PATHS.admin.login}
+                            className="font-semibold text-blue-400 transition hover:text-blue-300"
+                        >
+                            Admin sign in
+                        </Link>
                     </p>
                 </div>
             </div>

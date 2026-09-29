@@ -17,6 +17,8 @@ import WorkoutPlans from "../pages/WorkoutPlans/WorkoutPlans";
 import Nutrition from "../pages/Nutrition/Nutrition";
 import Progress from "../pages/Progress/Progress";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
+import AdminLogin from "../pages/Admin/AdminLogin";
 import WorkoutDetails from "../pages/WorkoutDetails/WorkoutDetails";
 
 
@@ -30,6 +32,9 @@ function AppRouter() {
         <Route path={PATHS.auth.login} element={<LoginPage />} />
         <Route path={PATHS.auth.register} element={<RegisterPage />} />
         <Route path={PATHS.auth.verifyEmail} element={<VerifyEmail />} />
+        <Route path={PATHS.admin.login} element={<AdminLogin />} />
+        <Route path={PATHS.admin.dashboard} element={<AdminDashboard />} />
+        <Route path={PATHS.admin.memberVerification} element={<AdminDashboard />} />
         <Route path={PATHS.public.membership} element={<MembershipPage />} />
         <Route path={PATHS.public.choosePlan} element={<ChoosePlan />} />
         <Route path={PATHS.public.payment} element={<PaymentPage />} />

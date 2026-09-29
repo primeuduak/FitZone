@@ -6,10 +6,13 @@ import { PATHS } from "../../Routes/Paths";
 function VerifyEmail() {
   const location = useLocation();
   const navigate = useNavigate();
+  const BASEURL = "https://fitness-website-api-v1.onrender.com";
   const email = location.state?.email;
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
+  const [notice, setNotice] = useState("");
 
   if (!email) {
     return <Navigate to={PATHS.auth.register} replace />;
@@ -25,7 +28,6 @@ function VerifyEmail() {
     }
 
     setLoading(true);
-const BASEURL = "https://fitness-website-api-v1.onrender.com";
     try {
       const response = await fetch(`${BASEURL}/auth/verify-otp`, {
         method: "POST",
@@ -36,7 +38,10 @@ const BASEURL = "https://fitness-website-api-v1.onrender.com";
 
       if (!response.ok) {
         throw new Error(
-          data.msg || data.message || data.error || `Verification failed (${response.status}).`,
+          data.msg ||
+            data.message ||
+            data.error ||
+            `Verification failed (${response.status}).`,
         );
       }
 
@@ -48,6 +53,37 @@ const BASEURL = "https://fitness-website-api-v1.onrender.com";
       setError(requestError.message);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleResend() {
+    setError("");
+    setNotice("");
+    setResending(true);
+
+    try {
+      const response = await fetch(`${BASEURL}/auth/resend-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+        credentials: "include",
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+            data.msg ||
+            data.error ||
+            `Could not resend code (${response.status}).`,
+        );
+      }
+
+      setNotice(data.message || data.msg || "A new verification code was sent.");
+    } catch (requestError) {
+      setError(requestError.message || "Could not resend the verification code.");
+    } finally {
+      setResending(false);
     }
   }
 
@@ -66,7 +102,8 @@ const BASEURL = "https://fitness-website-api-v1.onrender.com";
             </p>
             <h1 className="text-3xl font-bold">Verify Your Email</h1>
             <p className="mt-3 text-gray-300">
-              Enter the verification code sent to <span className="font-semibold text-white">{email}</span>.
+              Enter the verification code sent to{" "}
+              <span className="font-semibold text-white">{email}</span>.
             </p>
           </div>
 
@@ -95,8 +132,20 @@ const BASEURL = "https://fitness-website-api-v1.onrender.com";
             </div>
 
             {error && (
-              <p role="alert" className="rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-400">
+              <p
+                role="alert"
+                className="rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-400"
+              >
                 {error}
+              </p>
+            )}
+
+            {notice && (
+              <p
+                role="status"
+                className="rounded-lg bg-green-500/10 px-4 py-3 text-sm text-green-300"
+              >
+                {notice}
               </p>
             )}
 
@@ -106,6 +155,15 @@ const BASEURL = "https://fitness-website-api-v1.onrender.com";
               className="w-full rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? "Verifying..." : "Verify Email"}
+            </button>
+
+            <button
+              type="button"
+              onClick={handleResend}
+              disabled={resending || loading}
+              className="w-full py-2 text-sm font-semibold text-blue-300 transition hover:text-blue-200 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {resending ? "Sending new code..." : "Resend code"}
             </button>
           </form>
 

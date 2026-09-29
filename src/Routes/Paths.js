@@ -57,6 +57,7 @@ export const PATHS = {
   },
   // Admin / Front Desk pages
   admin: {
+    login: "/admin/login",
     dashboard: "/admin",
     memberVerification: "/admin/member",
   },
